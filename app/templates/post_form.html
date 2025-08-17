@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">{{ title }}</h1>
+    <p class="text-gray-600 mb-6">You are submitting a post under the category: <span class="font-semibold">{{ category.replace('-', ' ').title() }}</span></p>
+
+    <form id="post-form">
+        <input type="hidden" name="category" value="{{ category }}">
+        
+        <div class="mb-4">
+            <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title</label>
+            <input type="text" id="title" name="title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+            <textarea id="description" name="description" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price</label>
+            <input type="number" step="0.01" id="price" name="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="location" class="block text-gray-700 text-sm font-bold mb-2">Location</label>
+            <input type="text" id="location" name="location" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="contact_info" class="block text-gray-700 text-sm font-bold mb-2">Contact Info</label>
+            <input type="text" id="contact_info" name="contact_info" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="image_urls" class="block text-gray-700 text-sm font-bold mb-2">Image URLs (comma-separated)</label>
+            <input type="text" id="image_urls" name="image_urls" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div class="flex items-center justify-between">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                Submit Post
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('post-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            if (key === 'image_urls' && value) {
+                data[key] = value.split(',').map(url => url.trim());
+            } else {
+                data[key] = value;
+            }
+        }
+
+        const response = await fetch('/api/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Post created successfully!');
+            window.location.href = "{{ url_for('main.index') }}";
+        } else {
+            alert('Error: ' + result.error);
+        }
+    });
+</script>
+{% endblock %}

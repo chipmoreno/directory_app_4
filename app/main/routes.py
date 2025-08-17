@@ -49,4 +49,4 @@ def best_of():
 @main_bp.route('/submit-post/<category>')
 @login_required
 def submit_post(category):
-    return render_template('submit_post.html', title=f'Submit {category.replace("-", " ").title()} Post', category=category)
+    return render_template('post_form.html', title=f'Submit {category.replace("-", " ").title()} Post', category=category)
