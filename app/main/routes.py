@@ -45,3 +45,8 @@ def events_accommodations():
 @main_bp.route('/best_of')
 def best_of():
     return render_template('best_of.html', title='Best Of')
+
+@main_bp.route('/submit-post/<category>')
+@login_required
+def submit_post(category):
+    return render_template('submit_post.html', title=f'Submit {category.replace("-", " ").title()} Post', category=category)

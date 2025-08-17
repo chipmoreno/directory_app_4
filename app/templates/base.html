@@ -86,22 +86,22 @@
                             Submit a Post
                         </button>
                         <div id="dropdown-menu" class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg z-10 hidden">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Display ad / Banner</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Article / Story</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help (People)</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Animals</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Thank you note</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lost and Found</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">General Post</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Questions</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Looking for</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Events / Activities</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Items for Sale</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Recommendations</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Services</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Business</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Food / Entertainment</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Real Estate</a>
+                            <a href="{{ url_for('main.submit_post', category='display-ad-banner') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Display ad / Banner</a>
+                            <a href="{{ url_for('main.submit_post', category='article-story') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Article / Story</a>
+                            <a href="{{ url_for('main.submit_post', category='help-people') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help (People)</a>
+                            <a href="{{ url_for('main.submit_post', category='animals') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Animals</a>
+                            <a href="{{ url_for('main.submit_post', category='thank-you-note') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Thank you note</a>
+                            <a href="{{ url_for('main.submit_post', category='lost-and-found') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lost and Found</a>
+                            <a href="{{ url_for('main.submit_post', category='general-post') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">General Post</a>
+                            <a href="{{ url_for('main.submit_post', category='questions') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Questions</a>
+                            <a href="{{ url_for('main.submit_post', category='looking-for') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Looking for</a>
+                            <a href="{{ url_for('main.submit_post', category='events-activities') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Events / Activities</a>
+                            <a href="{{ url_for('main.submit_post', category='items-for-sale') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Items for Sale</a>
+                            <a href="{{ url_for('main.submit_post', category='recommendations') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Recommendations</a>
+                            <a href="{{ url_for('main.submit_post', category='services') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Services</a>
+                            <a href="{{ url_for('main.submit_post', category='business') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Business</a>
+                            <a href="{{ url_for('main.submit_post', category='food-entertainment') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Food / Entertainment</a>
+                            <a href="{{ url_for('main.submit_post', category='real-estate') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Real Estate</a>
                         </div>
                         {% else %}
                         <a href="{{ url_for('auth.login') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">
@@ -134,7 +134,7 @@
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Looking for....</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Thank you notes</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">General Post</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Looking for</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-700 hover:bg-gray-100">Looking for</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lost & Found</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Animals</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Helping people</a>
