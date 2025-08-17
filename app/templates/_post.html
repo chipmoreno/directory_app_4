@@ -1,0 +1,30 @@
+<div class="bg-white rounded-lg shadow-lg overflow-hidden w-full mx-auto my-4 p-6 bg-gradient-to-br from-gray-50 to-white">
+    <div class="flex flex-col md:flex-row">
+        <!-- Image Gallery Section -->
+        {% if post.image_urls %}
+        <div class="md:w-1/2 w-full mb-4 md:mb-0 md:pr-4">
+            {% include '_image_gallery.html' %}
+        </div>
+        {% endif %}
+
+        <!-- Text Content Section -->
+        <div class="{% if post.image_urls %}md:w-1/2{% else %}w-full{% endif %} flex flex-col">
+            {% include '_post_header.html' %}
+            {% include '_post_body.html' %}
+            {% include '_post_details.html' %}
+            
+            <!-- Post Footer with Metadata and Social Sharing -->
+            <div class="border-t border-gray-200 pt-4 mt-4 text-sm text-gray-500">
+                <div class="flex justify-between items-center mb-2">
+                    <span>Posted: {{ post.created_at.strftime('%b %d, %Y') }}</span>
+                    <span>Views: 0</span> {# Placeholder for views #}
+                    <span>Comments: 0</span> {# Placeholder for comments #}
+                </div>
+                <div class="flex space-x-2">
+                    <a href="#" class="text-blue-500 hover:text-blue-700">Share on Facebook</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Share on Twitter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

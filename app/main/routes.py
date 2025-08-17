@@ -10,7 +10,19 @@ main_bp = Blueprint('main', __name__)
 def index():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.filter_by(is_active=True).order_by(Post.created_at.desc()).paginate(page=page, per_page=10)
-    return render_template('index.html', posts=posts)
+    
+    # Dummy data for vertical carousels
+    left_sidebar_images = [
+        {'url': 'https://via.placeholder.com/250x400?text=Ad+1', 'alt': 'Advertisement 1', 'link': '#'},
+        {'url': 'https://via.placeholder.com/250x400?text=Ad+2', 'alt': 'Advertisement 2', 'link': '#'},
+        {'url': 'https://via.placeholder.com/250x400?text=Ad+3', 'alt': 'Advertisement 3', 'link': '#'},
+    ]
+    right_sidebar_images = [
+        {'url': 'https://via.placeholder.com/250x200?text=Right+Ad+1', 'alt': 'Right Ad 1', 'link': '#'},
+        {'url': 'https://via.placeholder.com/250x200?text=Right+Ad+2', 'alt': 'Right Ad 2', 'link': '#'},
+    ]
+
+    return render_template('index.html', posts=posts, left_sidebar_images=left_sidebar_images, right_sidebar_images=right_sidebar_images)
 
 @main_bp.route('/profile')
 @login_required

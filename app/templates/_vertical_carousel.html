@@ -1,0 +1,7 @@
+<div class="vertical-carousel">
+    {% for image in images %}
+    <a href="{{ image.link }}" target="_blank">
+        <img src="{{ image.url }}" alt="{{ image.alt }}" class="w-full h-auto rounded-md shadow-sm mb-4">
+    </a>
+    {% endfor %}
+</div>
