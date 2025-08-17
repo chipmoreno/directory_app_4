@@ -79,6 +79,7 @@ def create_post():
         location=data['location'],
         contact_info=data['contact_info'],
         image_urls=data.get('image_urls'),
+        category=data.get('category', 'general'), # Add this line
         author=current_user
     )
 
