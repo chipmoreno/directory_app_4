@@ -1,4 +1,4 @@
-const properties = [
+export const properties = [
     {
         id: 1,
         image: '/static/images/property1.jpg',

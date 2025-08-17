@@ -36,7 +36,9 @@ def todays_posts():
 
 @main_bp.route('/real_estate')
 def real_estate():
-    return render_template('real_estate.html', title='Real Estate')
+    # Query all active posts for real estate listings
+    posts = Post.query.filter_by(is_active=True).order_by(Post.created_at.desc()).all()
+    return render_template('real_estate.html', title='Real Estate', posts=posts)
 
 @main_bp.route('/user_forum')
 def user_forum():
