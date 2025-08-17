@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome to Directory{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const navbarToggle = document.getElementById('navbar-toggle');
+            const navbarCollapse = document.getElementById('navbar-collapse');
+            if (navbarToggle) {
+                navbarToggle.addEventListener('click', function () {
+                    navbarCollapse.classList.toggle('hidden');
+                });
+            }
+
+            // Main dropdown toggle
+            const dropdownToggle = document.getElementById('dropdown-toggle');
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            if (dropdownToggle) {
+                dropdownToggle.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    dropdownMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Other dropdown toggle
+            const otherDropdownToggle = document.getElementById('other-dropdown-toggle');
+            const otherDropdownMenu = document.getElementById('other-dropdown-menu');
+            if (otherDropdownToggle) {
+                otherDropdownToggle.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    otherDropdownMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Close dropdowns when clicking outside
+            window.addEventListener('click', function(e) {
+                if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
+                    if (!dropdownToggle.contains(e.target)) {
+                        dropdownMenu.classList.add('hidden');
+                    }
+                }
+                if (otherDropdownMenu && !otherDropdownMenu.classList.contains('hidden')) {
+                    if (!otherDropdownToggle.contains(e.target)) {
+                        otherDropdownMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a class="text-2xl font-bold text-indigo-600 hover:text-indigo-800" href="{{ url_for('main.index') }}">DirectoryApp</a>
+                <div class="lg:hidden">
+                    <button id="navbar-toggle" class="text-gray-600 hover:text-indigo-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden lg:flex lg:items-center" id="navbar-collapse">
+                    <ul class="flex items-center space-x-6 ml-auto">
+                        {% if current_user.is_authenticated %}
+                            <li><a class="text-gray-600 hover:text-indigo-600" href="{{ url_for('main.profile') }}">Profile</a></li>
+                            <li><a class="text-gray-600 hover:text-indigo-600" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                        {% else %}
+                            <li><a class="text-gray-600 hover:text-indigo-600" href="{{ url_for('auth.login') }}">Login</a></li>
+                            <li><a class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300" href="{{ url_for('auth.register') }}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                    <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 ml-6">
+                        Subscribe
+                    </a>
+                    <!-- Main Dropdown -->
+                    <div class="relative ml-6">
+                        <button id="dropdown-toggle" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                            Submit a Post
+                        </button>
+                        <div id="dropdown-menu" class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg z-10 hidden">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Display ad / Banner</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Article / Story</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Help (People)</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Animals</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Thank you note</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lost and Found</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">General Post</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Questions</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Looking for</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Events / Activities</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Items for Sale</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Recommendations</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Services</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Business</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Food / Entertainment</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Real Estate</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Secondary Menu Bar -->
+    <nav class="bg-gray-200 shadow-sm">
+        <div class="container mx-auto px-6 py-2">
+            <div class="flex justify-center items-center space-x-4">
+                <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Today's Posts</a>
+                <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Real Estate</a>
+                <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">User Forum</a>
+                <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Marketplace</a>
+                <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Business Announcements</a>
+                <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Events & Accommodations</a>
+                <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Best of</a>
+                <!-- Other Dropdown -->
+                <div class="relative">
+                    <button id="other-dropdown-toggle" class="text-gray-700 hover:text-indigo-600 font-medium">
+                        Other
+                    </button>
+                    <div id="other-dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Looking for....</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Thank you notes</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">General Post</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Looking for</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lost & Found</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Animals</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Helping people</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-4">
+                    {% for category, message in messages %}
+                        <div class="p-4 rounded-md bg-{{ category }}-100 text-{{ category }}-700">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-inner mt-12">
+        <div class="container mx-auto px-6 py-4 text-center text-gray-600">
+            <p>&copy; 2025 DirectoryApp. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
