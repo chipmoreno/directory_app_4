@@ -81,6 +81,7 @@
                     </a>
                     <!-- Main Dropdown -->
                     <div class="relative ml-6">
+                        {% if current_user.is_authenticated %}
                         <button id="dropdown-toggle" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">
                             Submit a Post
                         </button>
@@ -102,6 +103,11 @@
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Food / Entertainment</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Real Estate</a>
                         </div>
+                        {% else %}
+                        <a href="{{ url_for('auth.login') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                            Submit a Post
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
