@@ -56,8 +56,19 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    def __repr__(self):
-        return f'<Post {self.title}>'
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'price': str(self.price),
+            'location': self.location,
+            'contact_info': self.contact_info,
+            'image_urls': self.image_urls,
+            'is_active': self.is_active,
+            'created_at': self.created_at.isoformat(),
+            'user_id': self.user_id
+        }
 
     
 class Message(db.Model):

@@ -25,18 +25,10 @@ def create_app():
     with app.app_context():
         from app.auth.routes import auth_bp
         from app.main.routes import main_bp
+        from app.api.routes import api_bp
         app.register_blueprint(auth_bp)
         app.register_blueprint(main_bp)
-        "Here, we would import roots and blueprints"
-        "from app.ABC.routes import ABC_bp"
-        "app.register_blueprint(ABC_bp)"
-
-
-        '''Before making the following live, define 403.html'''
-
-        '''@app.errorhandler(403)
-        def forbidden_error(error):
-            return render_template('errors/403.html'), 403'''
+        app.register_blueprint(api_bp, url_prefix='/api')
         
         return app
         
