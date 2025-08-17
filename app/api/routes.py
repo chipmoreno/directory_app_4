@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, login_user, logout_user
 from app import db
 from app.models import Post, User
 
@@ -25,6 +25,30 @@ def register():
     # In a real application, you would return a JWT token here.
     # For simplicity, we will return a success message.
     return jsonify({'message': 'User registered successfully'}), 201
+
+@api_bp.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    if not data or not 'email' in data or not 'password' in data:
+        return jsonify({'error': 'Invalid input'}), 400
+
+    user = User.query.filter_by(email=data['email']).first()
+
+    if user is None or not user.check_password(data['password']):
+        return jsonify({'error': 'Invalid credentials'}), 401
+
+    login_user(user)
+    # In a real application, you would return a JWT token here.
+    # For simplicity, we will return a success message.
+    return jsonify({'message': 'Logged in successfully'})
+
+@api_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return jsonify({'message': 'Logged out successfully'})
+
+@api_bp.route('/posts', methods=['GET'])
 def get_posts():
     page = request.args.get('page', 1, type=int)
     limit = request.args.get('limit', 10, type=int)
