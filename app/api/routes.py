@@ -1,11 +1,30 @@
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 from app import db
-from app.models import Post
+from app.models import Post, User
 
 api_bp = Blueprint('api', __name__)
 
-@api_bp.route('/posts', methods=['GET'])
+@api_bp.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    if not data or not 'username' in data or not 'email' in data or not 'password' in data:
+        return jsonify({'error': 'Invalid input'}), 400
+
+    if User.query.filter_by(username=data['username']).first():
+        return jsonify({'error': 'Username already exists'}), 400
+    
+    if User.query.filter_by(email=data['email']).first():
+        return jsonify({'error': 'Email already exists'}), 400
+
+    user = User(username=data['username'], email=data['email'])
+    user.set_password(data['password'])
+    db.session.add(user)
+    db.session.commit()
+
+    # In a real application, you would return a JWT token here.
+    # For simplicity, we will return a success message.
+    return jsonify({'message': 'User registered successfully'}), 201
 def get_posts():
     page = request.args.get('page', 1, type=int)
     limit = request.args.get('limit', 10, type=int)
