@@ -1,0 +1,84 @@
+/* Global CSS Reset */
+body, h1, h2, h3, p, ul, li, a, form, input, textarea, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic Body Styles (already handled by Tailwind in base.html, but good for reset) */
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    background-color: #f7fafc; /* Tailwind gray-100 */
+    color: #2d3748; /* Tailwind gray-800 */
+}
+
+/* Header Styling */
+header {
+    background-color: #ffffff; /* White */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Tailwind shadow-md */
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+header .site-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4c51bf; /* Tailwind indigo-700 */
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+}
+
+header nav a {
+    color: #4299e1; /* Tailwind blue-500 */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+header nav a:hover {
+    color: #2b6cb0; /* Tailwind blue-700 */
+    text-decoration: underline;
+}
+
+/* Search Component Container Styling */
+.search-container {
+    background-color: #ffffff; /* White */
+    padding: 1.5rem;
+    border-radius: 0.5rem; /* Tailwind rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind shadow-md */
+    margin-bottom: 1.5rem;
+}
+
+/* Property Listings Container Styling */
+.property-listings {
+    background-color: #ffffff; /* White */
+    padding: 1.5rem;
+    border-radius: 0.5rem; /* Tailwind rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind shadow-md */
+}
+
+/* Responsive Adjustments (using Flexbox for example) */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav ul {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+}
