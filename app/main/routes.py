@@ -64,3 +64,8 @@ def best_of():
 @login_required
 def submit_post(category):
     return render_template('post_form.html', title=f'Submit {category.replace("-", " ").title()} Post', category=category)
+
+@main_bp.route('/post/<int:post_id>')
+def post_detail(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post_detail.html', post=post)
