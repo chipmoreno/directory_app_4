@@ -30,6 +30,10 @@ header .container {
     padding: 0 1rem;
 }
 
+main.container {
+    max-width: 780px;
+}
+
 header .site-logo {
     font-size: 1.5rem;
     font-weight: bold;
@@ -114,7 +118,7 @@ header nav a:hover {
 }
 
 .listing-card .title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #2d3748;
     margin-bottom: 0.5rem;
@@ -134,7 +138,7 @@ header nav a:hover {
 }
 
 .listing-card .description {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #4a5568;
     margin-bottom: 1rem;
 }
