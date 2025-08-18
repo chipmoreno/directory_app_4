@@ -1,3 +1,13 @@
 <div class="mb-4">
     <p class="text-gray-700 text-sm">{{ post.description }}</p>
+
+    {% if post.price %}
+    <p class="text-gray-900 mt-2 text-sm">Price: ${{ "%.2f"|format(post.price) }}</p>
+    {% endif %}
+    {% if post.location %}
+    <p class="text-gray-600 text-sm">Location: {{ post.location }}</p>
+    {% endif %}
+    {% if post.contact_info %}
+    <p class="text-gray-600 text-sm">Contact: {{ post.contact_info }}</p>
+    {% endif %}
 </div>
