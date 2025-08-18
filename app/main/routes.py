@@ -32,7 +32,9 @@ def profile():
 
 @main_bp.route('/todays_posts')
 def todays_posts():
-    return render_template('todays_posts.html', title='Today\'s Posts')
+    today = datetime(2025, 8, 18).date() # Specific date as requested
+    posts = Post.query.filter(db.func.date(Post.created_at) == today).order_by(Post.created_at.desc()).all()
+    return render_template('todays_posts.html', title='Today\'s Posts', posts=posts)
 
 @main_bp.route('/real_estate')
 def real_estate():
