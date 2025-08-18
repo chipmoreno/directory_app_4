@@ -144,6 +144,8 @@
         </div>
     </nav>
 
+    {% block search_bar %}{% endblock %}
+
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-8 max-w-3xl">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -160,6 +162,8 @@
         
         {% block content %}{% endblock %}
     </main>
+
+    {% block content_full_width %}{% endblock %}
 
     <!-- Footer -->
     <footer class="bg-white shadow-inner mt-12">
