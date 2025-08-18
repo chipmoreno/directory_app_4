@@ -67,6 +67,12 @@ def best_of():
 def submit_post(category):
     return render_template('post_form.html', title=f'Submit {category.replace("-", " ").title()} Post', category=category)
 
+@main_bp.route('/category/<category_slug>')
+def category_posts(category_slug):
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.filter_by(is_active=True, category=category_slug).order_by(Post.created_at.desc()).paginate(page=page, per_page=10)
+    return render_template('index.html', title=category_slug.replace('-', ' ').title(), posts=posts)
+
 @main_bp.route('/post/<int:post_id>')
 def post_detail(post_id):
     post = Post.query.get_or_404(post_id)
