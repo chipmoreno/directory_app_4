@@ -52,11 +52,12 @@ class Post(db.Model):
     price = db.Column(db.Numeric(10, 2), nullable=False)
     location = db.Column(db.String(120), nullable=False)
     contact_info = db.Column(db.Text, nullable=False)
-    image_urls = db.Column(db.JSON)
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     category = db.Column(db.String(50), nullable=False, default='general')
+    photos = db.relationship('Photo', backref='post', lazy=True)
+
 
     def to_dict(self):
         return {
@@ -66,7 +67,7 @@ class Post(db.Model):
             'price': str(self.price),
             'location': self.location,
             'contact_info': self.contact_info,
-            'image_urls': self.image_urls,
+            'photos': [photo.to_dict() for photo in self.photos],
             'is_active': self.is_active,
             'created_at': self.created_at.isoformat(),
             'user_id': self.user_id
@@ -90,4 +91,16 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     def __repr__(self):
         return f'<Comment {self.id}>'
+
+class Photo(db.Model):
+    __tablename__ = 'photos'
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(120), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'filename': self.filename
+        }
     

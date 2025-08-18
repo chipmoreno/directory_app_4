@@ -1,9 +1,9 @@
-{% if post.image_urls %}
+{% if post.photos %}
 <div class="relative w-full mb-4 md:mb-0 md:pr-4">
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-        {% for image_url in post.image_urls %}
-        <a href="{{ image_url }}" target="_blank">
-            <img src="{{ image_url }}" alt="Post image" class="w-full h-24 object-cover rounded-md shadow-sm cursor-pointer">
+        {% for photo in post.photos %}
+        <a href="{{ url_for('static', filename='uploads/' + photo.filename) }}" target="_blank">
+            <img src="{{ url_for('static', filename='uploads/' + photo.filename) }}" alt="Post image" class="w-full h-24 object-cover rounded-md shadow-sm cursor-pointer">
         </a>
         {% endfor %}
     </div>

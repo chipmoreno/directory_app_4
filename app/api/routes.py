@@ -1,7 +1,9 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from flask_login import current_user, login_required, login_user, logout_user
 from app import db
-from app.models import Post, User
+from app.models import Post, User, Photo
+from werkzeug.utils import secure_filename
+import os
 
 api_bp = Blueprint('api', __name__)
 
@@ -63,27 +65,46 @@ def get_posts():
 @api_bp.route('/posts', methods=['POST'])
 @login_required
 def create_post():
-    data = request.get_json()
-    if not data:
-        return jsonify({'error': 'Invalid input'}), 400
+    title = request.form.get('title')
+    description = request.form.get('description')
+    price = request.form.get('price')
+    location = request.form.get('location')
+    contact_info = request.form.get('contact_info')
+    category = request.form.get('category', 'general')
 
-    required_fields = ['title', 'description', 'price', 'location', 'contact_info']
-    for field in required_fields:
-        if field not in data:
-            return jsonify({'error': f'Missing required field: {field}'}), 400
+    if not all([title, description, price, location, contact_info]):
+        return jsonify({'error': 'Missing required fields'}), 400
+
+    try:
+        price = float(price)
+    except ValueError:
+        return jsonify({'error': 'Invalid price format'}), 400
 
     post = Post(
-        title=data['title'],
-        description=data['description'],
-        price=data['price'],
-        location=data['location'],
-        contact_info=data['contact_info'],
-        image_urls=data.get('image_urls'),
-        category=data.get('category', 'general'), # Add this line
+        title=title,
+        description=description,
+        price=price,
+        location=location,
+        contact_info=contact_info,
+        category=category,
         author=current_user
     )
 
     db.session.add(post)
+    db.session.commit()
+
+    # Handle file uploads
+    if 'photos' in request.files:
+        for file in request.files.getlist('photos'):
+            if file.filename == '':
+                continue
+            if file:
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                photo = Photo(filename=filename, post=post)
+                db.session.add(photo)
+
     db.session.commit()
 
     return jsonify(post.to_dict()), 201

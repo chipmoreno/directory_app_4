@@ -1,14 +1,14 @@
 <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full mx-auto my-4 p-6 bg-gradient-to-br from-gray-50 to-white">
     <div class="flex flex-col md:flex-row">
         <!-- Image Gallery Section -->
-        {% if post.image_urls %}
+        {% if post.photos %}
         <div class="md:w-1/2 w-full mb-4 md:mb-0 md:pr-4">
             {% include '_image_gallery.html' %}
         </div>
         {% endif %}
 
         <!-- Text Content Section -->
-        <div class="{% if post.image_urls %}md:w-1/2{% else %}w-full{% endif %} flex flex-col">
+        <div class="{% if post.photos %}md:w-1/2{% else %}w-full{% endif %} flex flex-col">
             {% include '_post_header.html' %}
             {% include '_post_body.html' %}
             {% include '_post_details.html' %}
